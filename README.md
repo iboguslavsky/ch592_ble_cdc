@@ -4,19 +4,10 @@ A transparent, high-throughput bidirectional bridge between **Bluetooth Low Ener
 
 Designed specifically for minimalist CH592 boards (such as the [biemster/ch592-nano](https://oshwlab.com/biemster/ch592-nano) board) that **do not expose hardware UART pins** and only have USB D+/D- and BOOT (PB22) available.
 
-```
-+------------------+          USB (Bulk EP)          +--------------------+
-|  Host Computer   | <=============================> |   WCH CH592 MCU    |
-| (/dev/ttyACM*)   |                                 | (CDC ACM + Nordic) |
-+------------------+                                 +--------------------+
-                                                               ^
-                                                               | BLE 2.4GHz
-                                                               | (Nordic NUS)
-                                                               v
-                                                     +--------------------+
-                                                     | Smartphone / PC /  |
-                                                     | BLE Central Client |
-                                                     +--------------------+
+```mermaid
+flowchart LR
+    Host["💻 Host Computer<br/><code>/dev/ttyACM*</code>"] <-->|"USB Full-Speed CDC ACM<br/>(12 Mbps Bulk Endpoints)"| CH592["⚡ WCH CH592 MCU<br/><code>(USB CDC + Nordic NUS)</code>"]
+    CH592 <-->|"BLE 2.4 GHz Nordic NUS<br/>(LE 2M PHY • 145 KB/s)"| Client["📱 BLE Central Client<br/><code>(iPhone / Android / PC)</code>"]
 ```
 
 ---
